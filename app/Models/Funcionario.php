@@ -18,6 +18,7 @@ class Funcionario extends Model
         'nome',
         'cargo',
         'user_id',
+        'status',
     ];
 
     public function usuario(){

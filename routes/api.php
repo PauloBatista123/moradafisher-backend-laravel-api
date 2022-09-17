@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FuncionarioController;
+use App\Http\Controllers\LancamentoController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -34,3 +35,9 @@ Route::get('produtos', [ProdutoController::class, 'show'])->name('produtos.show'
 Route::put('produtos/{id}', [ProdutoController::class, 'update'])->name('produtos.update');
 Route::get('produtos/detalhes/{id}', [ProdutoController::class, 'detalhes'])->name('produtos.detalhes');
 Route::delete('produtos/{id}', [ProdutoController::class, 'destroy'])->name('produtos.destroy');
+
+Route::post('lancamentos/register', [LancamentoController::class, 'store'])->name('lancamentos.store');
+Route::get('lancamentos', [LancamentoController::class, 'show'])->name('lancamentos.show');
+Route::put('lancamentos/{id}', [LancamentoController::class, 'update'])->name('lancamentos.update');
+Route::get('lancamentos/detalhes/{id}', [LancamentoController::class, 'detalhes'])->name('lancamentos.detalhes');
+Route::delete('lancamentos/{id}', [LancamentoController::class, 'destroy'])->name('lancamentos.destroy');
