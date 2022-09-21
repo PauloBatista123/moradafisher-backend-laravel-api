@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Lancamento\StoreLancamentos;
+use App\Http\Resources\Transformers\Lancamento\LancamentoResource;
 use App\Http\Resources\Transformers\Lancamento\LancamentoResourceCollection;
 use App\Models\Lancamento;
 use App\Services\ResponseService;
@@ -25,5 +27,21 @@ class LancamentoController extends Controller
         }
 
         return new LancamentoResourceCollection($lancamento);
+    }
+
+    public function store(StoreLancamentos $request){
+        try {
+            $lancamento = $this->lancamento->create([
+                'tipo' => $request->get('tipo'),
+                'peso' => $request->get('peso'),
+                'usuario_id' => $request->get('usuario_id'),
+                'funcionario_id' => $request->get('funcionario_id'),
+                'produto_id' => $request->get('produto_id'),
+            ]);
+        } catch (\Throwable|\Exception $e) {
+            return ResponseService::exception('lancamentos.store', null, $e);
+        }
+
+        return new LancamentoResource($lancamento, ['route' => 'lancamentos.store', 'type' => 'store']);
     }
 }

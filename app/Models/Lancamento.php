@@ -9,6 +9,10 @@ class Lancamento extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'peso', 'usuario_id', 'produto_id', 'funcionario_id', 'tipo'
+    ];
+
     public function usuario(){
         return $this->belongsTo(User::class, 'usuario_id', 'id');
     }

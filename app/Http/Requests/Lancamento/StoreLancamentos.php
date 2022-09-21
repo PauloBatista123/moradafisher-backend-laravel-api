@@ -26,7 +26,7 @@ class StoreLancamentos extends FormRequest
     {
         return [
             'peso' => 'required|string',
-            'tipo' => 'required|tipo',
+            'tipo' => 'required|string',
             'usuario_id' => 'exists:App\Models\User,id|required',
             'produto_id' => 'exists:App\Models\Produto,id|required',
             'funcionario_id' => 'exists:App\Models\Funcionario,id|required',
