@@ -85,11 +85,15 @@ class ProdutoController extends Controller
 
         try {
 
+            if($this->produto->find($id)->lancamentos){
+                throw new Exception("Produto possui lançamentos cadastrados!", 403);
+            }
+
             $produto = $this->produto->destroy($id);
 
         } catch (\Throwable|\Exception $e) {
 
-            return ResponseService::exception('produtos.detalhes', $id, $e);
+            return ResponseService::exception('produtos.destroy', $id, $e);
         }
 
         return ResponseService::default(['route' => 'produtos.destroy', 'type' => 'destroy'], $id);

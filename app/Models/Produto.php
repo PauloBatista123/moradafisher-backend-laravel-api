@@ -24,4 +24,8 @@ class Produto extends Model
     public function usuario(){
         return $this->belongsTo(User::class, "usuario_id", "id");
     }
+
+    public function lancamentos(){
+        return $this->hasMany(Lancamento::class, 'produto_id', 'id');
+    }
 }
