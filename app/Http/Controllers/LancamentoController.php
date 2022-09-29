@@ -44,4 +44,19 @@ class LancamentoController extends Controller
 
         return new LancamentoResource($lancamento, ['route' => 'lancamentos.store', 'type' => 'store']);
     }
+
+    public function destroy($id){
+
+        try {
+
+            $lancamento = $this->lancamento->destroy($id);
+
+        } catch (\Throwable|\Exception $e) {
+
+            return ResponseService::exception('lancamentos.destroy', $id, $e);
+        }
+
+        return ResponseService::default(['route' => 'lancamentos.destroy', 'type' => 'destroy'], $id);
+
+    }
 }

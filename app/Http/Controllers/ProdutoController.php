@@ -85,7 +85,7 @@ class ProdutoController extends Controller
 
         try {
 
-            if($this->produto->find($id)->lancamentos){
+            if($this->produto->find($id)->lancamentos->count() > 0){
                 throw new Exception("Produto possui lançamentos cadastrados!", 403);
             }
 

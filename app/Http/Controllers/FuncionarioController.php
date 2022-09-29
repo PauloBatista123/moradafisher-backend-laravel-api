@@ -38,7 +38,7 @@ class FuncionarioController extends Controller
     public function show(){
         try {
 
-            $funcionarios = $this->funcionario->paginate();
+            $funcionarios = $this->funcionario->orderBy('nome')->paginate();
 
         } catch (\Throwable|\Exception $e) {
             return ResponseService::exception('funcionarios.show', null, $e);

@@ -25,7 +25,7 @@ class StoreLancamentos extends FormRequest
     public function rules()
     {
         return [
-            'peso' => 'required|string',
+            'peso' => 'required',
             'tipo' => 'required|string',
             'usuario_id' => 'exists:App\Models\User,id|required',
             'produto_id' => 'exists:App\Models\Produto,id|required',
@@ -38,7 +38,6 @@ class StoreLancamentos extends FormRequest
         return [
             'peso.required' => 'Informe o :attribute',
             'tipo.required' => 'Informe o :attribute',
-            'peso.string' => 'O :attribute deve ser do tipo texto',
             'tipo.string' => 'O :attribute deve ser do tipo texto',
             'cargo.max' => 'O :attribute deve conter no máximo :max caracteres',
             'cargo.string' => 'O :attribute deve ser do tipo texto',
