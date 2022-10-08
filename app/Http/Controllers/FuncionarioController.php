@@ -35,10 +35,15 @@ class FuncionarioController extends Controller
         return new FuncionarioResource($funcionario, ['route' => 'funcionarios.store', 'type' => 'store']);
     }
 
-    public function show(){
+    public function show(Request $request){
         try {
+            $pagination = $request->get('page');
 
-            $funcionarios = $this->funcionario->orderBy('nome')->paginate();
+            if(boolval($pagination)){
+                $funcionarios = $this->funcionario->orderBy('nome')->paginate();
+            }else{
+                $funcionarios = $this->funcionario->orderBy('nome')->get();
+            }
 
         } catch (\Throwable|\Exception $e) {
             return ResponseService::exception('funcionarios.show', null, $e);

@@ -35,10 +35,17 @@ class ProdutoController extends Controller
         return new ProdutoResource($produto, ['route' => 'produtos.store', 'type' => 'store']);
     }
 
-    public function show(){
+    public function show(Request $request){
         try {
 
-            $produtos = $this->produto->paginate();
+            $pagination = $request->get('page');
+
+            if(boolval($pagination)){
+                $produtos = $this->produto->orderBy('nome')->paginate();
+            }else{
+                $produtos = $this->produto->orderBy('nome')->get();
+            }
+
 
         } catch (\Throwable|\Exception $e) {
             return ResponseService::exception('produtos.show', null, $e);

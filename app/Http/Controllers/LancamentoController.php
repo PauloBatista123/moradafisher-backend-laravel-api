@@ -20,7 +20,7 @@ class LancamentoController extends Controller
     public function show(){
         try {
 
-            $lancamento = $this->lancamento->paginate();
+            $lancamento = $this->lancamento->orderBy('id', 'desc')->paginate();
 
         } catch (\Throwable|\Exception $e) {
             return ResponseService::exception('produtos.show', null, $e);
