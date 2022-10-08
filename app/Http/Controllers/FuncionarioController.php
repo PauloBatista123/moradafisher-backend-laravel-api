@@ -37,10 +37,19 @@ class FuncionarioController extends Controller
 
     public function show(Request $request){
         try {
+
             $pagination = $request->get('page');
+            $filtro_nome = $request->get('nome');
+            $filtro_ordem = $request->get('ordem');
 
             if(boolval($pagination)){
-                $funcionarios = $this->funcionario->orderBy('nome')->paginate();
+                $funcionarios = $this->funcionario
+                ->when($filtro_nome, function($query, $filtro_nome){
+                    $query->where('nome', 'like', '%'.$filtro_nome.'%');
+                })
+                ->orderBy($filtro_ordem ?? 'nome')
+                ->paginate();
+
             }else{
                 $funcionarios = $this->funcionario->orderBy('nome')->get();
             }

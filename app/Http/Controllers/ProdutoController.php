@@ -37,11 +37,18 @@ class ProdutoController extends Controller
 
     public function show(Request $request){
         try {
-
             $pagination = $request->get('page');
+            $filtro_nome = $request->get('nome');
+            $filtro_ordem = $request->get('ordem');
 
             if(boolval($pagination)){
-                $produtos = $this->produto->orderBy('nome')->paginate();
+                $produtos = $this->produto
+                ->when($filtro_nome, function($query, $filtro_nome){
+                    $query->where('nome', 'like', '%'.$filtro_nome.'%');
+                })
+                ->orderBy($filtro_ordem ?? 'nome')
+                ->paginate();
+
             }else{
                 $produtos = $this->produto->orderBy('nome')->get();
             }
