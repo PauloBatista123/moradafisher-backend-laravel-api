@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FuncionarioController;
+use App\Http\Controllers\ProdutoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,4 @@ Route::get('/', function () {
 });
 
 Route::get('/funcionarios',[FuncionarioController::class, "index"])->name("funcionarios.index");
+Route::get('/produtos',[ProdutoController::class, "index"])->name("produtos.index");

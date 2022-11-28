@@ -19,6 +19,11 @@ class ProdutoController extends Controller
         $this->produto = $produto;
      }
 
+    public function index()
+    {
+        return view('admin.Produtos.index');
+    }
+
     public function store(StoreProduto $request){
 
         try {
