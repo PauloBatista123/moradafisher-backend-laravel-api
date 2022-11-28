@@ -19,6 +19,11 @@ class FuncionarioController extends Controller
         $this->funcionario = $funcionario;
      }
 
+    public function index()
+    {
+        return view("admin.funcionario.index");
+    }
+
     public function store(StoreFuncionario $request){
 
         try {

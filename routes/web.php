@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FuncionarioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('admin.index');
 });
+
+Route::get('/funcionarios',[FuncionarioController::class, "index"])->name("funcionarios.index");

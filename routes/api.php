@@ -41,3 +41,5 @@ Route::get('lancamentos', [LancamentoController::class, 'show'])->name('lancamen
 Route::put('lancamentos/{id}', [LancamentoController::class, 'update'])->name('lancamentos.update');
 Route::get('lancamentos/detalhes/{id}', [LancamentoController::class, 'detalhes'])->name('lancamentos.detalhes');
 Route::delete('lancamentos/{id}', [LancamentoController::class, 'destroy'])->name('lancamentos.destroy');
+
+Route::get('lancamentos/relatorios', [LancamentoController::class, 'relatorios'])->name('lancamentos.relatorios');
