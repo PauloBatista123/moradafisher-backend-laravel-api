@@ -21,7 +21,7 @@
                         </div>
                         <div class="col-auto">
                             <button
-                                class="btn btn-sm btn-outline-danger"
+                                class="btn btn-sm btn-outline-info"
                                 type="button"
                                 wire:click="confirmDelete({{$produto->id}})"
                             >

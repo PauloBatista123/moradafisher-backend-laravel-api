@@ -25,7 +25,7 @@ class Index extends Component
     // funções
     public function render()
     {
-        $this->funcionarios = Funcionario::paginate(15);
+        $this->funcionarios = Funcionario::orderby('nome')->paginate(15);
 
         return view('livewire.cadastro.funcionario.index', [
             'funcionarios' => $this->funcionarios
@@ -49,7 +49,7 @@ class Index extends Component
     public function confirmDelete($id)
     {
         $this->onFuncionarioDelete = $id;
-        
+
         $this->alert('info', 'Deseja deletar o registro?', [
             'showConfirmButton' => true,
             'confirmButtonText' => 'Deletar',

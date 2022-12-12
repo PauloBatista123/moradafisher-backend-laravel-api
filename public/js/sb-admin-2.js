@@ -3,6 +3,7 @@
 
   // Toggle the side navigation
   $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
+    console.log('ola');
     $("body").toggleClass("sidebar-toggled");
     $(".sidebar").toggleClass("toggled");
     if ($(".sidebar").hasClass("toggled")) {
@@ -51,6 +52,10 @@
       scrollTop: ($($anchor.attr('href')).offset().top)
     }, 1000, 'easeInOutExpo');
     e.preventDefault();
+  });
+
+  $('.peso-cadastrar').mask("#.###,##", {
+    reverse: true
   });
 
 })(jQuery); // End of use strict

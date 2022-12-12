@@ -21,6 +21,16 @@ class LancamentoController extends Controller
         $this->lancamento = $lancamento;
     }
 
+    public function index()
+    {
+        return view("admin.lancamentos.index");
+    }
+
+    public function cadastrar()
+    {
+        return view("admin.lancamentos.cadastrar");
+    }
+
     public function show(Request $request){
         try {
             $pagination = $request->get('page');
