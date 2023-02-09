@@ -8,11 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Models\Papel;
+use App\Models\Permissao;
+use DB;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -23,9 +23,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'email', 'password', 'status', 'expire_in'
     ];
 
     /**
@@ -47,25 +45,6 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function login($credentials){
-
-        if (!$token = JWTAuth::attempt($credentials)) {
-            throw new \Exception('Credencias incorretas, verifique-as e tente novamente.', -404);
-        }
-        return $token;
-
-    }
-
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
-
     public function create($fields)
     {
         return parent::create([
@@ -73,6 +52,71 @@ class User extends Authenticatable implements JWTSubject
             'email' => $fields['email'] ,
             'password' => Hash::make($fields['password']),
         ]);
+    }
+
+    public function papeis(){
+
+        return $this->belongsToMany(Papel::class);
+    }
+
+    public function permissoes(){
+
+        return $this->belongsToMany(Permissao::class);
+    }
+
+    public function adicionaPapel($papel){
+
+        if (is_string($papel)) {
+            return $this->papeis()->save(
+                Papel::where('nome', '=', $papel)->firstOrFail()
+
+            );
+        }
+        return $this->papeis()->save(
+            Papel::where('nome', '=', $papel->nome)->firstOrFail()
+
+        );
+    }
+
+    public function removePapel($papel){
+        if (is_string($papel)) {
+            return $this->papeis()->detach(
+                Papel::where('nome', '=', $papel)->firstOrFail()
+
+            );
+        }
+        return $this->papeis()->detach(
+            Papel::where('nome', '=', $papel->nome)->firstOrFail()
+
+        );
+    }
+
+    public function existePapel($papel){
+
+        if (is_string($papel)) {
+            return $this->papeis->contains('nome', $papel);
+        }
+
+        return $papel->intersect($this->papeis)->count();
+
+    }
+
+    public static function existePermissao($permissao, $papel){
+
+        if (DB::table('papel_permissao')->where('permissao_id', $permissao)->where('papel_id', $papel)->count()) {
+
+            return true;
+
+        }else{
+            return false;
+        }
+
+    }
+
+    public function existeAdmin(){
+
+        return $this->existePapel('admin');
+
     }
 
 }

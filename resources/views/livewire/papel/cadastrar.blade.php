@@ -4,7 +4,6 @@
 
     <form>
         <div class="row">
-
             <div class="col-12">
                 <div class="form-group">
                     <label for="exampleFormControlInput1" class="form-label">Nome:</label>
@@ -12,7 +11,7 @@
                         type="text"
                         class="form-control {{$errors->has('nome') ? 'is-invalid' : ''}}"
                         id="exampleFormControlInput1"
-                        placeholder="name@example.com"
+                        placeholder="Administrator"
                         wire:model.defer='nome'
 
                     >
@@ -27,17 +26,17 @@
         <div class="row">
             <div class="col-12">
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Unidade:</label>
+                    <label for="exampleFormControlInput1" class="form-label">Descricação:</label>
                     <input
                         type="text"
-                        class="form-control {{$errors->has('unidade') ? 'is-invalid' : ''}}"
+                        class="form-control {{$errors->has('descricao') ? 'is-invalid' : ''}}"
                         id="exampleFormControlInput1"
-                        placeholder="Cargo"
-                        wire:model.defer='unidade'
+                        placeholder="Perfil de administrador..."
+                        wire:model.defer='descricao'
                     >
-                    @if($errors->has('unidade'))
+                    @if($errors->has('descricao'))
                     <div class="invalid-feedback">
-                        {{$errors->first('unidade')}}
+                        {{$errors->first('descricao')}}
                     </div>
                     @endif
                 </div>

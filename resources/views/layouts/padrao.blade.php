@@ -30,18 +30,18 @@
     @livewireStyles
 </head>
 
-<body id="page-top" class="sidebar-toggled">
+<body id="page-top" class="sidebar-toggled min-vh-100">
 
     <!-- Page Wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" class="min-vh-100">
 
         @include('layouts.navBar')
 
         <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content-wrapper" class="d-flex flex-column min-vh-100">
 
             <!-- Main Content -->
-            <div id="content">
+            <div id="content" class="min-vh-90">
 
                 <!-- Topbar -->
                 @include('layouts.topBar')
@@ -57,7 +57,7 @@
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
+                <div class="container my-auto h-25">
                     <div class="copyright text-center my-auto">
                         <span>Morada Fisher</span>
                     </div>

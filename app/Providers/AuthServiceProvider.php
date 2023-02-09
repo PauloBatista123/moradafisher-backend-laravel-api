@@ -2,18 +2,19 @@
 
 namespace App\Providers;
 
+use App\Models\Permissao;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
-    /**
+   /**
      * The policy mappings for the application.
      *
-     * @var array<class-string, class-string>
+     * @var array
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        'app\Model' => 'app\Policies\ModelPolicy',
     ];
 
     /**
@@ -25,6 +26,17 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        foreach ($this->getPermissoes() as $permissao) {
+               Gate::define($permissao->nome,
+                    function($user) use ($permissao){
+                        return $user->existePapel($permissao->papeis) || $user->existeAdmin();
+                    }
+                );
+           }
+    }
+
+    public function getPermissoes()
+    {
+        return Permissao::with('papeis')->get();
     }
 }

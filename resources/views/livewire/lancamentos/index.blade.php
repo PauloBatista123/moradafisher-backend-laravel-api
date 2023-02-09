@@ -25,9 +25,9 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xl font-weight-bold {{$item->tipo === 'ENTRADA' ? 'text-primary' : 'text-success' }} text-uppercase mb-1">
-                            {{$item->tipo}}: {{$item->produto->nome}}
+                            {{$item->tipo}}
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$item->peso}} {{$item->produto->unidade}}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$item->peso}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -48,7 +48,14 @@
     </div>
 
     @empty
-
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <h3>Não encontramos registros...</h3>
+                <i class="fa-regular fa-face-surprise" style="font-size: 64px;"></i>
+            </div>
+        </div>
+    </div>
     @endforelse
     </div>
     <div class="row">

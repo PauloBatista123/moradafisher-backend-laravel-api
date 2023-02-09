@@ -10,6 +10,7 @@ use App\Models\Funcionario;
 use App\Models\User;
 use App\Services\ResponseService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FuncionarioController extends Controller
 {
@@ -21,6 +22,8 @@ class FuncionarioController extends Controller
 
     public function index()
     {
+        abort_if(!Auth()->user()->can('funcionario_listar'), 403);
+
         return view("admin.funcionario.index");
     }
 

@@ -3,33 +3,24 @@
         <div class="col-lg-4 col-md-12 mb-2">
             <div class="card">
                 <div class="card-body">
-                    <div class="form-group">
-                        <select class="form-select form-select-lg mb-3 {{$errors->has('selectFuncionario') ? 'is-invalid' : ''}}" aria-label=".form-select-lg example" wire:model='selectFuncionario'>
-                            <option selected value="">Funcionário</option>
-                            @foreach ($funcionarios as $item)
-                                <option value="{{$item->id}}">{{$item->nome}}</option>
-                            @endforeach
+                    <div class="list-group mb-1">
+                        @foreach ($funcionarios as $item)
+                        <a href="#" class="list-group-item list-group-item-action {{$this->selectFuncionario === $item->id ? 'active' : ''}}" aria-current="true" wire:click='onFuncionario({{$item->id}})'>
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-0 fw-bold">{{$item->nome}}</h6>
+                                <small>ID: {{$item->id}}</small>
+                            </div>
+                            <small>{{$item->cargo}}</small>
+                        </a>
+                        @endforeach
 
-                        </select>
                         @if($errors->has('selectFuncionario'))
-                        <div class="invalid-feedback">
-                            {{$errors->first('selectFuncionario')}}
-                        </div>
+                            <div class="invalid-feedback">
+                                {{$errors->first('selectFuncionario')}}
+                            </div>
                         @endif
                     </div>
-                    <div class="form-group">
-                        <select class="form-select form-select-lg mb-3 {{$errors->has('selectFuncionario') ? 'is-invalid' : ''}}" aria-label=".form-select-lg example" wire:model='selectProduto'>
-                            <option selected value="">Produto</option>
-                            @foreach ($produtos as $produto)
-                                <option value="{{$produto->id}}">{{$produto->nome}}</option>
-                            @endforeach
-                        </select>
-                        @if($errors->has('selectProduto'))
-                        <div class="invalid-feedback">
-                            {{$errors->first('selectProduto')}}
-                        </div>
-                        @endif
-                    </div>
+
                     <div class="d-flex flex-row justify-content-center">
                         <div role="button" class="card text-white w-50 mr-1 {{$tipo === 'ENTRADA' ? 'bg-gradient-warning fw-bold shadow' : 'bg-secondary'}}" wire:click='tipoEntrada("ENTRADA")'>
                             <div class="card-body text-center">
@@ -144,7 +135,7 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col">
-                            <button type="button" class="btn btn-primary btn-lg btn-block" wire:click='salvar'>Salvar</button>
+                            <button type="button" class="btn btn-primary btn-lg btn-block" wire:click='confirmarLancamento'>Salvar</button>
                         </div>
                         <div class="col">
                             <button type="button" class="btn btn-outline-info btn-lg btn-block" wire:click='limpar'>Limpar</button>

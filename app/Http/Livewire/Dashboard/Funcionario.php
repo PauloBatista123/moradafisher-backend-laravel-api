@@ -39,6 +39,7 @@ class Funcionario extends Component
     public function filtrar()
     {
 
+
         $this->funcionarioSelected = ModelsFuncionario::find($this->funcionarioId);
         $this->isFiltered = true;
         $this->dispatchBrowserEvent('close-offCanvas');
@@ -61,7 +62,6 @@ class Funcionario extends Component
                 'peso' => number_format($entrada->peso, 4, ',', '.'),
                 'usuario' => $entrada->usuario->name,
                 'created_at' => Carbon::parse($entrada->created_at)->format('d/m/Y H:i'),
-                'produto' => $entrada->produto->nome,
             ];
         });
 
@@ -83,28 +83,23 @@ class Funcionario extends Component
                 'peso' => number_format($entrada->peso, 4, ',', '.'),
                 'usuario' => $entrada->usuario->name,
                 'created_at' => Carbon::parse($entrada->created_at)->format('d/m/Y H:i'),
-                'produto' => $entrada->produto->nome,
             ];
         });
 
         $this->entradasTotal = Lancamento::
                                 where(['tipo' => 'ENTRADA', 'funcionario_id' => $this->funcionarioId])
                                 ->when($this->date, function($query){
-                                    if($this->isMonth == 'mes'){
-                                        $query->whereMonth('created_at', Carbon::parse($this->date)->month)->whereYear('created_at', Carbon::parse($this->date)->year);
-                                    }else{
-                                        $query->whereDate('created_at', $this->date);
-                                    }
+                                    return $query->whereMonth('created_at', Carbon::parse($this->date)->month)->whereYear('created_at', Carbon::parse($this->date)->year);
+                                }, function ($query){
+                                    return $query->whereDate('created_at', $this->date);
                                 })->sum('peso');
 
         $this->saidasTotal = Lancamento::
                                 where(['tipo' => 'SAIDA', 'funcionario_id' => $this->funcionarioId])
                                 ->when($this->date, function($query){
-                                    if($this->isMonth == 'mes'){
-                                        $query->whereMonth('created_at', Carbon::parse($this->date)->month)->whereYear('created_at', Carbon::parse($this->date)->year);
-                                    }else{
-                                        $query->whereDate('created_at', $this->date);
-                                    }
+                                    return $query->whereMonth('created_at', Carbon::parse($this->date)->month)->whereYear('created_at', Carbon::parse($this->date)->year);
+                                }, function($query){
+                                    return $query->whereDate('created_at', $this->date);
                                 })
                                 ->sum('peso');
 

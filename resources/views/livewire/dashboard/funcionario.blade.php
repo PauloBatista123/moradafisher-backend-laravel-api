@@ -90,9 +90,6 @@
                                     @foreach ($listaEntradas as $entrada)
                                         <div class="card">
                                             <div class="card-body d-flex flex-column justify-content-start">
-                                                <span class="text-xs">
-                                                    {{$entrada['produto']}}
-                                                </span>
                                                 <span class="fw-bold fs-5 text-primary">
                                                     {{$entrada['peso']}}
                                                 </span>
@@ -110,9 +107,6 @@
                                     @foreach ($listaSaidas as $saida)
                                         <div class="card">
                                             <div class="card-body d-flex flex-column justify-content-start">
-                                                <span class="text-xs">
-                                                    {{$saida['produto']}}
-                                                </span>
                                                 <span class="fw-bold fs-5 text-success">
                                                     {{$saida['peso']}}
                                                 </span>

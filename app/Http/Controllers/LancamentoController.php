@@ -23,12 +23,16 @@ class LancamentoController extends Controller
 
     public function index()
     {
-        return view("admin.lancamentos.index");
+        abort_if(!Auth()->user()->can('lancamento_listar'), 403);
+
+        return view("admin.Lancamentos.index");
     }
 
     public function cadastrar()
     {
-        return view("admin.lancamentos.cadastrar");
+        abort_if(!Auth()->user()->can('lancamento_adicionar'), 403);
+
+        return view("admin.Lancamentos.cadastrar");
     }
 
     public function show(Request $request){
@@ -41,12 +45,9 @@ class LancamentoController extends Controller
             if(boolval($pagination)){
 
                 $lancamento = $this->lancamento
-                ->withOnly(['funcionario', 'usuario', 'produto'])
+                ->withOnly(['funcionario', 'usuario'])
                 ->when($filtro_funcionario, function ($query) use ($filtro_funcionario){
                     $query->where('funcionario_id', $filtro_funcionario);
-                })
-                ->when($filtro_produto, function ($query) use ($filtro_produto){
-                    $query->where('produto_id', $filtro_produto);
                 })
                 ->when($filtro_tipo, function ($query) use ($filtro_tipo){
                     $query->where('tipo', $filtro_tipo);

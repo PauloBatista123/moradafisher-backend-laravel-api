@@ -17,4 +17,9 @@ class HomeController extends Controller
     {
         return view('admin.Dashboard.funcionario');
     }
+
+    public function exportar()
+    {
+        return view('admin.Exportar.index');
+    }
 }

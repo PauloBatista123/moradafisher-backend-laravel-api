@@ -4024,6 +4024,7 @@ input[type="button"].btn-block {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
+
 }
 
 .nav-link:hover, .nav-link:focus {
@@ -11291,4 +11292,11 @@ body.sidebar-toggled footer.sticky-footer {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 
     transition: all 0.3s ease-in-out;
+}
+
+
+.nav-link-offset:hover {
+    filter: opacity(0.5);
+
+    transition: all 0.1s ease-in-out;
 }

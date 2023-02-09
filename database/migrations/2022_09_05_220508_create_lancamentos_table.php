@@ -15,14 +15,12 @@ class CreateLancamentosTable extends Migration
     {
         Schema::create('lancamentos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('produto_id');
             $table->unsignedBigInteger('funcionario_id');
             $table->unsignedBigInteger('usuario_id');
             $table->decimal("peso", 8, 4);
             $table->enum("tipo", ["ENTRADA", "SAIDA"]);
             $table->timestamps();
 
-            $table->foreign("produto_id")->references("id")->on("produtos");
             $table->foreign("funcionario_id")->references("id")->on("funcionarios");
             $table->foreign("usuario_id")->references("id")->on("users");
         });

@@ -7,13 +7,13 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold {{$item->tipo === 'ENTRADA' ? 'text-primary': 'text-success'}}  text-uppercase mb-1">
-                                {{$item->tipo}}:{{$item->produto->nome}}
+                                {{$item->tipo}}
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{number_format($item->peso, 4, ',', '.')}} {{$item->produto->unidade}}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{number_format($item->peso, 4, ',', '.')}}</div>
                             <div class="text-sm font-weight-light text-muted">Funcionário:{{$item->funcionario->nome}}</div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        <div class="col-auto justify-content-start align-items-start">
+                            <button type="button" class="btn btn-outline-danger btn-sm" wire:click='confirmDelete({{$item->id}})'><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                     <div class="row no-gutters align-items-center text-xs text-muted">

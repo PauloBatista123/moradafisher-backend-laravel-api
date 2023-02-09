@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Livewire\Cadastro\Produto;
+namespace App\Http\Livewire\Usuario;
 
-use App\Models\Produto;
+use App\Models\User;
 use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -15,20 +15,17 @@ class Index extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    // variaveis
-    private $produtos = null;
-    public $onProdutoDelete = null;
+    public $onUserDelete = null;
 
     // chamada de eventos
-    protected $listeners = ['atualizar_produto' => 'render', 'deletar'];
+    protected $listeners = ['atualizar' => 'render', 'deletar'];
 
-    // funções
     public function render()
     {
-        $this->produtos = Produto::paginate(15);
+        $registros = User::orderBy('name')->paginate(10);
 
-        return view('livewire.cadastro.produto.index', [
-            'produtos' => $this->produtos
+        return view('livewire.usuario.index', [
+            'registros' => $registros
         ]);
     }
 
@@ -36,7 +33,7 @@ class Index extends Component
     {
         try {
 
-            Produto::find($this->onProdutoDelete)->delete();
+            User::find($this->onUserDelete)->delete();
 
             $this->emit('render');
             $this->alert('success', 'Deletado com sucesso');
@@ -48,7 +45,7 @@ class Index extends Component
 
     public function confirmDelete($id)
     {
-        $this->onProdutoDelete = $id;
+        $this->onUserDelete = $id;
 
         $this->alert('info', 'Deseja deletar o registro?', [
             'showConfirmButton' => true,
@@ -60,5 +57,11 @@ class Index extends Component
             'toast' => false,
             'timer' => null,
         ]);
+    }
+
+    public function editar(int $id)
+    {
+        $this->emitTo('usuario.alterar', 'atribuir', $id);
+        $this->dispatchBrowserEvent('open-modal-editar');
     }
 }

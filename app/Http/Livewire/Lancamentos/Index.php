@@ -43,13 +43,17 @@ class Index extends Component
             ->orderBy('id')
             ->paginate($this->pagination);
 
+            return view('livewire.lancamentos.index', [
+                'lancamentos' => $lancamentos
+            ]);
+
         } catch (\Throwable|\Exception $e) {
 
-        }
+            return view('livewire.lancamentos.index', [
+                'lancamentos' => Lancamento::paginate($this->pagination)
+            ]);
 
-        return view('livewire.lancamentos.index', [
-            'lancamentos' => $lancamentos
-        ]);
+        }
     }
 
     public function deletar()
